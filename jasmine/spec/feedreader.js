@@ -113,7 +113,6 @@ $(function() {
     beforeEach(function(done) {
       loadFeed(0, function() {
         entry = $('.entry').text();
-        console.log(entry);
         done();
       });
     });
@@ -131,7 +130,6 @@ $(function() {
     it('should change content when new feed is selected', function(done) {
       loadFeed(2, function() {
         entryChanged = $('.entry').text();
-        console.log(entryChanged);
         expect(entry).not.toBe(entryChanged);
         done();
       });
