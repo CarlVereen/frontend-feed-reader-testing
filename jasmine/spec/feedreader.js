@@ -89,6 +89,10 @@ $(function() {
          beforeEach(function(done) {
            loadFeed(0, done);
          });
+
+         afterAll(function(done) {
+           loadFeed(0, done);
+         });
          /* a test that ensures when the loadFeed
           * function is called and completes its work, there is at least
           * a single .entry element within the .feed container.
@@ -106,7 +110,7 @@ $(function() {
           entryChanged;
 
          //setup initial load and capture the first entry
-         beforeEach(function(done) {
+         beforeAll(function(done) {
            loadFeed(0, function() {
              entry = $('.entry').text();
              done();
@@ -117,16 +121,18 @@ $(function() {
            });
          });
 
+         afterAll(function(done){
+             //loading back the first feed
+             loadFeed(0, function() {
+               done();
+             });
+         });
+
          /* a test that ensures when a new feed is loaded
           * by the loadFeed function that the content actually changes.
           */
          it('should change content when new feed is selected', function() {
            expect(entry).not.toBe(entryChanged);
-         });
-
-         afterAll(function(done){
-             //loading back the first feed
-                 loadFeed(0, done);
          });
     });
     /*a new suite for future functionality and testing specs*/
