@@ -57,22 +57,7 @@ $(function() {
 
     /* a new test suite named for the Menu */
     describe('The Menu', function() {
-      var $firstTitle, $body,
-      $secondTitle;
-
-        //set up test variables
-        beforeEach(function(done) {
-          loadFeed(0, done);
-          $firstTitle = $('.header-title').text();
-          loadFeed(1, done);
-        });
-        /* a test that verifies a header title change
-         * that matches the menu selected
-         */
-        it('selection changes the header title', function() {
-          $secondTitle = $('.header-title').text();
-          expect(secondTitle).not.toBe(firstTitle);
-        });
+      var  $body;
 
         /* a test that ensures the menu element is
          * hidden by default.
@@ -122,19 +107,24 @@ $(function() {
 
          //setup initial load and capture the first entry
          beforeEach(function(done) {
-           entry = $('.entry')[0].innerText;
-           loadFeed(1, done);
+           loadFeed(0, function() {
+             entry = $('.entry').text();
+             done();
+           });
+           loadFeed(1, function() {
+             entryChanged = $('.entry').text();
+             done();
+           });
          });
 
          /* a test that ensures when a new feed is loaded
           * by the loadFeed function that the content actually changes.
           */
          it('should change content when new feed is selected', function() {
-           entryChanged = $('.entry')[0].innerText;
            expect(entry).not.toBe(entryChanged);
          });
 
-         afterEach(function(done){
+         afterAll(function(done){
              //loading back the first feed
                  loadFeed(0, done);
          });
